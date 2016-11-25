@@ -2,25 +2,37 @@
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+# CXX ?= g++     ?
+# USE_UPNP:=-    ?
+# USE_IPV6:=1    ?
+
+
 USE_UPNP:=0
 
+DEPSDIR?=/usr/local
+BOOST_SUFFIX?=-mgw48-mt-s-1_55
 INCLUDEPATHS= \
- -I"C:\deps\boost_1_55_0" \
- -I"C:\deps\db-4.8.30.NC\build_unix" \
- -I"C:\deps\openssl-1.0.1g\include"
-
+ -I"$(CURDIR)" \
+ -I"c:/deps/boost_1_55_0" \
+ -I"c:/deps/db-4.8.30.NC/build_unix" \
+ -I"c:/deps/openssl-1.0.1e/include" \
+ -I"$(DEPSDIR)/include"
+ 
 LIBPATHS= \
- -L"C:\deps\boost_1_55_0\stage\lib" \
- -L"C:\deps\db-4.8.30.NC\build_unix" \
- -L"C:\deps\openssl-1.0.1g"
+ -L"$(CURDIR)/leveldb" \
+ -L"c:/deps/boost_1_55_0/stage/lib" \
+ -L"c:/deps/db-4.8.30.NC/build_unix" \
+ -L"c:/deps/openssl-1.0.1e" \
+ -L"$(DEPSDIR)/lib"
 
 LIBS= \
  -l leveldb \
- -l boost_system-mgw49-mt-s-1_55 \
- -l boost_filesystem-mgw49-mt-s-1_55 \
- -l boost_program_options-mgw49-mt-s-1_55 \
- -l boost_thread-mgw49-mt-s-1_55 \
- -l boost_chrono-mgw49-mt-s-1_55 \
+ -l memenv \
+ -l boost_system$(BOOST_SUFFIX) \
+ -l boost_filesystem$(BOOST_SUFFIX) \
+ -l boost_program_options$(BOOST_SUFFIX) \
+ -l boost_thread$(BOOST_SUFFIX) \
+ -l boost_chrono$(BOOST_SUFFIX) \
  -l db_cxx \
  -l ssl \
  -l crypto
@@ -120,11 +132,7 @@ obj/%.o: %.cpp $(HEADERS)
 
 obj/%.o: %.c
 	$(CXX) -c $(xCXXFLAGS) -fpermissive -MMD -MF $(@:%.o=%.d) -o $@ $<
-	@cp $(@:%.o=%.d) $(@:%.o=%.P); \
-	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
-		-e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
-			  
-	rm -f $(@:%.o=%.d)	
+
 	
 obj/zerocoin/%.o: zerocoin/%.cpp
 	g++ -c $(CFLAGS) -o $@ $<
