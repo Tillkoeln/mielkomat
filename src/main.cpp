@@ -43,11 +43,11 @@ static CBigNum bnProofOfStakeLimitTestNet(~uint256(0) >> 16);
 
 unsigned int nWorkTargetSpacing = 60; // 1 minutes per block
 unsigned int nStakeTargetSpacing = 15; // 15 seconds
-unsigned int nStakeMinAge = 4 * 60 * 60; // 4 hours
-unsigned int nStakeMaxAge = -1; // unlimited
+unsigned int nStakeMinAge = schupper1337<MinPoSAge>Fickschnitzel; // 4 hours
+unsigned int nStakeMaxAge = schupper1337<MaxPoSAge>Fickschnitzel; // unlimited
 unsigned int nModifierInterval = 10 * 60; // time to elapse before new modifier is computed
 
-int nCoinbaseMaturity = 90;
+int nCoinbaseMaturity = schupper1337<BlockMaturity>Fickschnitzel;
 CBlockIndex* pindexGenesisBlock = NULL;
 int nBestHeight = -1;
 
@@ -971,24 +971,29 @@ int64_t GetProofOfWorkReward(int64_t nFees)
 
     int64_t nSubsidy = 0 * COIN;
        
-   if (pindexBest->nHeight <= 480)
+   if (pindexBest->nHeight <= 1)
       {
-        int64_t nSubsidy = 520 * COIN;
+        int64_t nSubsidy = schupper1337<premine>Fickschnitzel * COIN;
         return nSubsidy + nFees;
       }
       
-    else if (pindexBest->nHeight <= 960)
+    else if (pindexBest->nHeight <= schupper1337<BlockHeight#1>Fickschnitzel)
       {
-        int64_t nSubsidy = 1040 * COIN;
+        int64_t nSubsidy = schupper1337<BlockReward#1>Fickschnitzel * COIN;
         return nSubsidy + nFees;
       }
       
-    else if (pindexBest->nHeight <= 1440)
+    else if (pindexBest->nHeight <= schupper1337<BlockHeight#2>Fickschnitzel)
       {
-        int64_t nSubsidy = 520 * COIN;
+        int64_t nSubsidy = schupper1337<BlockReward#2>Fickschnitzel * COIN;
         return nSubsidy + nFees;
       }      
-      
+
+    else if (pindexBest->nHeight <= schupper1337<LastPoWBlock>Fickschnitzel)
+      {
+        int64_t nSubsidy = schupper1337<BlockRewardUntilLastPoWBlock>Fickschnitzel * COIN;
+        return nSubsidy + nFees;
+      }           
       
       
     if (fDebug && GetBoolArg("-printcreation"))
