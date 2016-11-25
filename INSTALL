@@ -1,0 +1,9 @@
+Building schupper1337<CoinName>Fickschnitzel
+
+See doc/readme-qt.rst for instructions on building schupper1337<CoinName>Fickschnitzel QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of schupper1337<CoinName>Fickschnitzel.
+
+See doc/build-*.txt for instructions on building schupper1337<CoinName>Fickschnitzeld,
+the intended-for-services, no-graphical-interface, reference
+implementation of schupper1337<CoinName>Fickschnitzel.
